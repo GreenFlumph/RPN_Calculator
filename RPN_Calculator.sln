@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RPN_Calculator", "RPN_Calculator\RPN_Calculator.csproj", "{307BB5CC-10E2-45B9-85C8-F9191EA0BF56}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{307BB5CC-10E2-45B9-85C8-F9191EA0BF56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{307BB5CC-10E2-45B9-85C8-F9191EA0BF56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{307BB5CC-10E2-45B9-85C8-F9191EA0BF56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{307BB5CC-10E2-45B9-85C8-F9191EA0BF56}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
