@@ -1,73 +1,88 @@
-﻿namespace Calc_RP;
+﻿using System.Text;
+
+namespace Calc_RP;
+
 using System.Globalization;
+
 class CalcRP
-{   
+{
     static void Main(string[] args)
     {
-        var expression = Console.ReadLine();
-        char[] numbers = expression.ToCharArray();
-        Stack<char> expr_obj = new Stack<char>();
+        string expression = Console.ReadLine();
+        StringBuilder currentNumber = new StringBuilder();
+
+        Stack<string> expr_obj = new Stack<string>();
         string rpn_expression = null;
-        List<char> RPN_numbers=new List<char>();
-        foreach (char c in numbers)
+        List<string> RPN_expression = new List<string>();
+
+        foreach (char c in expression) //Конвертацию сделать отдельным методом
         {
-            switch (c)
+            if (char.IsDigit(c))
+                currentNumber.Append(c);
+            else
             {
-                case '0':
-                case '1':
-                case '2':
-                case '3':
-                case '4':
-                case '5':
-                case '6':
-                case '7':
-                case '8':
-                case '9':
-                    RPN_numbers.Add(c);
-                    break;
-                case '+':
-                case '-':
-                    expr_obj.Push(c);
-                    break;
-                case '/':
-                case '*':
-                    if (expr_obj.Peek() == '/' || expr_obj.Peek() == '*' || expr_obj.Peek() == '^')
-                        RPN_numbers.Add(expr_obj.Pop());
-                    expr_obj.Push(c);
-                    break;
-                case '^':
-                    if (expr_obj.Peek() == '^')
-                        RPN_numbers.Add(expr_obj.Pop());
-                    expr_obj.Push(c);
-                    break;
-                case '(':
-                    expr_obj.Push(c);
-                    break;
-                case ')':
-                    try
-                    {
-                        while (expr_obj.Peek() != '(')
+                if (currentNumber.Length > 0) //Добавляем число в лист постфиксной записи
+                {
+                    RPN_expression.Add(currentNumber.ToString());
+                    currentNumber.Clear();
+                }
+
+                switch (c) //Отработка операторов (надо вынести в отдельный метод)
+                {
+                    case '+':
+                    case '-':
+                        expr_obj.Push(c.ToString());
+                        break;
+                    case '/':
+                    case '*':
+                        if (expr_obj.Peek() == "/" || expr_obj.Peek() == "*" || expr_obj.Peek() == "^")
+                            RPN_expression.Add(expr_obj.Pop());
+                        expr_obj.Push(c.ToString());
+                        break;
+                    case '^':
+                        if (expr_obj.Peek() == "^")
+                            RPN_expression.Add(expr_obj.Pop());
+                        expr_obj.Push(c.ToString());
+                        break;
+                    case '(':
+                        expr_obj.Push(c.ToString());
+                        break;
+                    case ')':
+                        try
                         {
-                            RPN_numbers.Add(expr_obj.Pop());
+                            while (expr_obj.Peek() != "(")
+                            {
+                                RPN_expression.Add(expr_obj.Pop());
+                            }
+
+                            expr_obj.Pop();
                         }
-                        expr_obj.Pop();
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Отсутствует в выражении '('");
-                    }
-                    break;
+                        catch
+                        {
+                            Console.WriteLine("Отсутствует в выражении '('");
+                        }
+
+                        break;
+                }
             }
         }
+
+        if (currentNumber.Length > 0) //Добавляем число в лист постфиксной записи
+        {
+            RPN_expression.Add(currentNumber.ToString());
+            currentNumber.Clear();
+        }
+
         while (expr_obj.Count > 0)
         {
-            RPN_numbers.Add(expr_obj.Pop());
+            RPN_expression.Add(expr_obj.Pop());
         }
-        foreach (char item in RPN_numbers)
+
+        foreach (string item in RPN_expression)
         {
             rpn_expression += item.ToString() + " ";
         }
+
         Console.WriteLine(rpn_expression);
-        
     }
 }
