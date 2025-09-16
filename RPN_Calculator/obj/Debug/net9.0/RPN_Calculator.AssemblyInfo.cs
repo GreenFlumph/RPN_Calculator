@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RPN_Calculator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+79a7be2756c23b19b3a3d9fcefb692ff1efe9118")]
 [assembly: System.Reflection.AssemblyProductAttribute("RPN_Calculator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RPN_Calculator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
