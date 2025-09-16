@@ -8,10 +8,12 @@ class CalcRP
 {
     static void Main(string[] args)
     {
+        double a, b, result = 0;
         string expression = Console.ReadLine();
         StringBuilder currentNumber = new StringBuilder();
 
         Stack<string> expr_obj = new Stack<string>();
+        Stack<double> operands = new Stack<double>();
         string rpn_expression = null;
         List<string> RPN_expression = new List<string>();
 
@@ -83,6 +85,51 @@ class CalcRP
             rpn_expression += item.ToString() + " ";
         }
 
+        Console.WriteLine("Выражение преобразованное постфиксную запись:");
         Console.WriteLine(rpn_expression);
+
+        foreach (string d in RPN_expression)
+        {
+            if (double.TryParse(d, out double operand))
+                operands.Push(operand);
+            else
+            {
+                switch (d) //Отработка операторов (надо вынести в отдельный метод)
+                {
+                    case "+":
+                        b = operands.Pop();
+                        a = operands.Pop();
+                        result = a + b;
+                        operands.Push(result);
+                        break;
+                    case "-":
+                        b = operands.Pop();
+                        a = operands.Pop();
+                        result = a - b;
+                        operands.Push(result);
+                        break;
+                    case "/":
+                        b = operands.Pop();
+                        a = operands.Pop();
+                        result = a / b;
+                        operands.Push(result);
+                        break;
+                    case "*":
+                        b = operands.Pop();
+                        a = operands.Pop();
+                        result = a * b;
+                        operands.Push(result);
+                        break;
+                    case "^":
+                        b = operands.Pop();
+                        a = operands.Pop();
+                        result = Math.Pow(a, b);
+                        operands.Push(result);
+                        break;
+                }
+            }
+        }
+        Console.WriteLine("Результат:");
+        Console.WriteLine(result);
     }
 }
